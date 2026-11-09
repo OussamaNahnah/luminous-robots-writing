@@ -1,6 +1,6 @@
 ---
 name: luminous-robots-writing
-description: Draft, revise, and review research text on luminous robots, distributed algorithms, and grid exploration, using precise terminology and clear B2 academic English.
+description: Draft, revise, and review journal articles, conference papers, and thesis chapters on luminous robots, distributed algorithms, and grid exploration, using precise terminology, formal academic style, and clear B2 English.
 ---
 
 # Luminous Robots Writing
@@ -8,6 +8,20 @@ description: Draft, revise, and review research text on luminous robots, distrib
 Use the academic style of *Synthesizing Algorithms to Avoid an Obstacle with a Swarm of Robots* as a reference: introduce the setting explicitly, explain constructions in order, and connect each claim to its evidence. The guidance below is self-contained; the original paper is not needed. The examples are newly written illustrations, not excerpts or research results.
 
 The current draft determines the model, definitions, notation, and claims. Transfer the reference paper's terminology and writing patterns where they fit. For a paper on grids without obstacles, do not introduce an obstacle, bypass scenario, obstacle-position predicate, or obstacle-related restriction. Do not import the reference paper's number of robots, colors, visibility range, scheduler, chirality, initial configurations, or grid-size bounds without support in the draft.
+
+## Document type and depth
+
+Determine whether the text is a journal article, conference paper, or thesis chapter from the user's request or the supplied draft. If the type remains unclear and would affect the writing, ask which type the user is preparing before making format-dependent changes. Respect supplied venue or institution requirements, templates, and length limits.
+
+Use the ICDCS paper's formal academic style, precise terminology, and clear English across all three formats. Adjust the depth and organization to the document type while preserving technical meaning and the distinction between simulation evidence and proved results.
+
+For journal articles and conference papers, keep explanations concise while including the definitions, assumptions, and reasoning needed to understand the work independently.
+
+Adapt the depth and organization to the document type as follows.
+
+- **Journal articles:** Present the setting, contributions, methods, results, and supporting arguments with enough context for an independent reader. Keep elaboration relevant to understanding and assessing the work.
+- **Conference papers:** Prioritize the central contribution and a compact explanation of the model, method, and results within the supplied venue requirements and length limits. Retain the assumptions and reasoning needed to assess each claim. If essential content cannot fit, flag the conflict for author review.
+- **Thesis chapters:** Allow fuller explanations, motivation, intermediate reasoning, and examples where they help the reader. When context is available, connect the chapter's questions and contributions to the thesis objectives, explain how it builds on earlier chapters, and indicate links to later chapters. Use supplied thesis definitions and cross-references consistently; do not invent surrounding chapter content when it is unavailable.
 
 ## Reference glossary and conventions
 
@@ -26,7 +40,8 @@ These meanings describe the reference paper. Use them to interpret matching term
 | Execution; perpetual exploration; terminating exploration | An execution is a sequence of configurations after successive LCM rounds. Perpetual exploration requires every relevant node to be visited infinitely often. Terminating exploration requires exploration followed by stopping. A single complete visit does not establish perpetual exploration. |
 | Basis algorithm; extension; scenario; goal | A basis algorithm is the algorithm being extended. In the reference construction, an extension retains its rules and includes the required initial configurations. A scenario guides synthesis through goals: pairs of starting and ending local configurations, with bounding boxes, round bounds, and optional mandatory or forbidden nodes. These are method-specific concepts. |
 | Candidate; validated; proved | A candidate is a synthesized algorithm awaiting exploration checks. A validated algorithm has passed the specified simulations. A proof may extend the result to other initial configurations and grid sizes. Always state which property and domain each status covers. |
-| Cycle; energy; level | An exploration cycle returns to a previously encountered configuration and covers the grid. The reference energy metric counts movements and color changes; a candidate's level groups it by total energy over the goals. Do not confuse this metric with elapsed time, rounds, or physical energy. |
+| Cycle; exploration cycle | A cycle returns to the same full configuration, including robot colors. A cycle may leave nodes unvisited; an exploration cycle visits every required node. |
+| Energy; level | The reference energy metric counts movements and color changes; a candidate's level groups it by total energy over the goals. Do not confuse this metric with elapsed time, rounds, or physical energy. |
 
 Reference notation, for recognition rather than mandatory reuse:
 
@@ -67,7 +82,7 @@ For robot behavior, give the condition before the response: when a robot sees a 
 
 Give the experimental setting and tested domain before interpreting the results. Report quantities with their objects and units: candidates generated, algorithms retained, grids and starts tested, rounds, and durations. Link table or figure references to the specific observation. Follow the paper's pattern of reporting an observation and then explaining the algorithm behavior behind it, when that explanation is supported.
 
-Separate synthesis, simulation validation, proof, and classification. Use “The simulations show… on the tested grids” for evidence with that scope. Use “By Lemma…” or “Theorem… establishes…” only for supplied results. A repeating cycle can establish perpetual behavior for a deterministic fixed instance if it repeats the full configuration and covers every required node; a long run or a position-only repetition is insufficient. Do not invent a cycle certificate when the draft supplies only observations. Comparisons of paths, rounds, or energy measured in simulations retain the tested scope.
+Separate synthesis, simulation validation, proof, and classification. Use “The simulations show… on the tested grids” for evidence with that scope. Use “By Lemma…” or “Theorem… establishes…” only for supplied results. On a fixed grid with deterministic transitions, returning to the same full configuration, including robot colors, establishes perpetual exploration for that execution if the intervening cycle visits every required node. If scheduling or pending actions affect future behavior, account for them before inferring indefinite repetition. A long run or a position-only repetition is insufficient. Do not invent a cycle certificate when the draft supplies only observations. Comparisons of paths, rounds, or energy measured in simulations retain the tested scope.
 
 ### Lemmas and proofs
 
@@ -136,6 +151,6 @@ This revision separates the assumption, cited result, and conclusion while retai
 
 ## Output
 
-For a rewrite or draft, return paste-ready LaTeX in a fenced `latex` block, keeping commentary outside it. Follow the user's requested scope. Put technical ambiguities or unsupported claims in a separate short note that identifies the passage and the question needing author review. If there are none, omit the note. Do not silently resolve them in the LaTeX.
+For a rewrite or draft, return paste-ready text in the requested format. If no format is specified, preserve the input format. Use a fenced `latex` block for LaTeX. Keep commentary separate from the revised text and follow the user's requested scope. Put technical ambiguities or unsupported claims in a separate short note that identifies the passage and the question needing author review. If there are none, omit the note. Do not silently resolve them in the revised text.
 
-For a review, identify each relevant passage by its section, label, or a short quotation. Explain the specific language or technical issue and suggest a concrete edit, with LaTeX where useful. Distinguish wording improvements from changes that require the author's technical judgment. Do not present stylistic preference as a correctness error.
+For a review, identify each relevant passage by its section, label, or a short quotation. Explain the specific language or technical issue and suggest a concrete edit in the requested format or, if unspecified, the passage's format. Distinguish wording improvements from changes that require the author's technical judgment. Do not present stylistic preference as a correctness error.
